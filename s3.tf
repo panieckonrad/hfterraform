@@ -15,3 +15,8 @@ resource "aws_s3_bucket_public_access_block" "s3hf" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_object" "object" {
+  bucket = aws_s3_bucket.s3hf.bucket
+  key    = "kafka-connect-aws-s3"
+  source = "~/Downloads/kafka-connect-aws-s3-2.1.3.1-2.5.0-all.jar"
+}

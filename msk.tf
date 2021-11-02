@@ -25,6 +25,10 @@ resource "aws_msk_cluster" "hf-msk" {
   }
 }
 
+resource "aws_glue_registry" "msk-registry" {
+  registry_name = "msk-registry"
+}
+
 output "zookeeper_connect_string" {
   value = aws_msk_cluster.hf-msk.zookeeper_connect_string
 }

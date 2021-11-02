@@ -36,7 +36,7 @@ resource "aws_security_group" "sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = {
+  tags        = {
     Name = "allow ssh and kafka"
   }
 }
@@ -110,4 +110,17 @@ resource "aws_eip" "eip" {
   network_interface         = aws_network_interface.ni.id
   associate_with_private_ip = "10.0.2.50"
   depends_on                = [aws_internet_gateway.gw]
+}
+
+#s3 vpc endpoint
+resource "aws_vpc_endpoint" "s3-vpc-endpoint" {
+  vpc_id       = aws_vpc.hf-msk-vpc.id
+  service_name = "com.amazonaws.eu-west-1.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids = [aws_route_table.hf-msk-route-table.id]
+
+  tags = {
+    Name    = "s3-vpc-endpoint"
+    Pricing = "hf"
+  }
 }
