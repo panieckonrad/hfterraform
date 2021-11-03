@@ -10,15 +10,13 @@ resource "aws_msk_cluster" "hf-msk" {
       aws_subnet.hf-msk-subnet1-public.id,
       aws_subnet.hf-msk-subnet2-public.id
     ]
-    security_groups = [aws_security_group.sg.id]
+    security_groups = [aws_security_group.sg_msk.id]
   }
   encryption_info {
     encryption_in_transit {
       client_broker = "TLS_PLAINTEXT"
     }
   }
-
-
   tags = {
     Name    = "hf-msk",
     Pricing = "hf"

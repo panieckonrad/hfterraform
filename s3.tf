@@ -1,7 +1,8 @@
 resource "aws_s3_bucket" "s3hf" {
-  bucket = "s3hftest"
-  acl    = "private"
-  tags   = {
+  bucket        = "s3hftest"
+  acl           = "private"
+  force_destroy = true
+  tags          = {
     Name    = "s3hftest"
     Pricing = "hf"
   }

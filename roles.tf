@@ -53,6 +53,6 @@ resource "aws_iam_role" "s3-kafka-connect-role" {
 }
 
 resource "aws_iam_role_policy_attachment" "policy_to_role_attachment" {
-    role = aws_iam_role.s3-kafka-connect-role.name
-    policy_arn = aws_iam_policy.hf-s3-policy.arn
+  role       = aws_iam_role.s3-kafka-connect-role.name
+  policy_arn = aws_iam_policy.hf-s3-policy.arn
 }

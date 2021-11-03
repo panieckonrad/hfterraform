@@ -6,27 +6,13 @@ resource "aws_vpc" "hf-msk-vpc" {
 }
 
 # security group
-resource "aws_security_group" "sg" {
+resource "aws_security_group" "sg_ec2" {
   vpc_id      = aws_vpc.hf-msk-vpc.id
-  description = "Allow ssh and kafka"
+  description = "Allow ssh"
   ingress {
     description = "ssh"
     from_port   = 22
     to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "kafka brokers"
-    from_port   = 9092
-    to_port     = 9098
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "zookeeper"
-    from_port   = 2181
-    to_port     = 2182
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -37,7 +23,42 @@ resource "aws_security_group" "sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags        = {
-    Name = "allow ssh and kafka"
+    Name = "allow ssh"
+  }
+}
+
+resource "aws_security_group" "sg_msk" {
+  vpc_id      = aws_vpc.hf-msk-vpc.id
+  description = "Allow ec2 access"
+  ingress {
+    from_port       = 0
+    protocol        = "-1"
+    to_port         = 0
+    security_groups = [aws_security_group.sg_ec2.id]
+  }
+  #  ingress {
+  #    description = "kafka brokers"
+  #    from_port   = 9092
+  #    to_port     = 9098
+  #    protocol    = "tcp"
+  #    cidr_blocks = ["0.0.0.0/0"]
+  #  }
+  #  ingress {
+  #    description = "zookeeper"
+  #    from_port   = 2181
+  #    to_port     = 2182
+  #    protocol    = "tcp"
+  #    cidr_blocks = ["0.0.0.0/0"]
+  #  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "Allow kafka inbound"
   }
 }
 
@@ -101,7 +122,7 @@ resource "aws_route_table_association" "subnet3-routetable" {
 resource "aws_network_interface" "ni" {
   subnet_id       = aws_subnet.hf-msk-subnet3-public.id
   private_ips     = ["10.0.2.50"]
-  security_groups = [aws_security_group.sg.id]
+  security_groups = [aws_security_group.sg_ec2.id]
 }
 
 # elastic ip
@@ -114,10 +135,10 @@ resource "aws_eip" "eip" {
 
 #s3 vpc endpoint
 resource "aws_vpc_endpoint" "s3-vpc-endpoint" {
-  vpc_id       = aws_vpc.hf-msk-vpc.id
-  service_name = "com.amazonaws.eu-west-1.s3"
+  vpc_id            = aws_vpc.hf-msk-vpc.id
+  service_name      = "com.amazonaws.eu-west-1.s3"
   vpc_endpoint_type = "Gateway"
-  route_table_ids = [aws_route_table.hf-msk-route-table.id]
+  route_table_ids   = [aws_route_table.hf-msk-route-table.id]
 
   tags = {
     Name    = "s3-vpc-endpoint"
