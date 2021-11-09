@@ -1,9 +1,8 @@
 resource "aws_s3_bucket" "s3hf" {
-  bucket        = "s3hftest"
+  bucket        = "hfs3testing"
   acl           = "private"
-  force_destroy = true
   tags          = {
-    Name    = "s3hftest"
+    Name    = "hfs3testing"
     Pricing = "hf"
   }
 }
@@ -18,6 +17,6 @@ resource "aws_s3_bucket_public_access_block" "s3hf" {
 
 resource "aws_s3_bucket_object" "object" {
   bucket = aws_s3_bucket.s3hf.bucket
-  key    = "kafka-connect-aws-s3"
-  source = "~/Downloads/kafka-connect-aws-s3-2.1.3.1-2.5.0-all.jar"
+  key    = "confluentinc-kafka-connect-s3-10.0.3.zip"
+  source = "~/Downloads/confluentinc-kafka-connect-s3-10.0.3.zip"
 }
