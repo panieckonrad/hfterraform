@@ -42,34 +42,34 @@ resource "aws_iam_policy" "hf-s3-policy2" {
   description = "allows s3 access for kafka msk connect 2"
 
   policy = jsonencode({
-	"Version": "2012-10-17",
-	"Statement": [
-    	{
-        	"Sid": "1",
-        	"Effect": "Allow",
-        	"Action": [
-            	"s3:PutObject",
-            	"s3:GetObject",
-            	"s3:ListBucket",
-		"s3:DeleteObject"
-        	],
-        	"Resource": [
-            	"arn:aws:s3:::hfs3testing",
-            	"arn:aws:s3:::hfs3testing/*"
-        	]
-    	},
-    	{
-        	"Sid": "2",
-        	"Effect": "Allow",
-        	"Action": [
-            	"kafka:Describe*"
-        	],
-        	"Resource": [
-            	"*"
-        	]
-    	}
-	]
-})
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "1",
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:DeleteObject"
+        ],
+        "Resource" : [
+          "arn:aws:s3:::hfs3testing",
+          "arn:aws:s3:::hfs3testing/*"
+        ]
+      },
+      {
+        "Sid" : "2",
+        "Effect" : "Allow",
+        "Action" : [
+          "kafka:Describe*"
+        ],
+        "Resource" : [
+          "*"
+        ]
+      }
+    ]
+  })
 }
 
 resource "aws_iam_role" "s3-kafka-connect-role1" {
@@ -104,12 +104,29 @@ resource "aws_iam_role" "s3-kafka-connect-role2" {
   })
 }
 
+data "aws_iam_policy" "GlueRegistryFullAccess" {
+  arn = "arn:aws:iam::aws:policy/AWSGlueSchemaRegistryFullAccess"
+}
+
 resource "aws_iam_role_policy_attachment" "policy_to_role_attachment1" {
   role       = aws_iam_role.s3-kafka-connect-role1.name
   policy_arn = aws_iam_policy.hf-s3-policy1.arn
+}
+
+resource "aws_iam_role_policy_attachment" "policy_to_role_attachment1-2" {
+  role       = aws_iam_role.s3-kafka-connect-role1.name
+  policy_arn = data.aws_iam_policy.GlueRegistryFullAccess.arn
 }
 
 resource "aws_iam_role_policy_attachment" "policy_to_role_attachment2" {
   role       = aws_iam_role.s3-kafka-connect-role2.name
   policy_arn = aws_iam_policy.hf-s3-policy2.arn
 }
+
+resource "aws_iam_role_policy_attachment" "policy_to_role_attachment2-2" {
+  role       = aws_iam_role.s3-kafka-connect-role2.name
+  policy_arn = data.aws_iam_policy.GlueRegistryFullAccess.arn
+}
+
+
+
