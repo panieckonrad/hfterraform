@@ -19,7 +19,7 @@ resource "aws_iam_policy" "hf-s3-policy1" {
           "s3:ListBucket",
           "s3:GetBucketLocation"
         ],
-        "Resource" : "arn:aws:s3:::hfs3testing"
+        "Resource" : "arn:aws:s3:::${var.s3name}"
       },
       {
         "Effect" : "Allow",
@@ -54,8 +54,8 @@ resource "aws_iam_policy" "hf-s3-policy2" {
           "s3:DeleteObject"
         ],
         "Resource" : [
-          "arn:aws:s3:::hfs3testing",
-          "arn:aws:s3:::hfs3testing/*"
+          "arn:aws:s3:::${var.s3name}",
+          "arn:aws:s3:::${var.s3name}/*"
         ]
       },
       {

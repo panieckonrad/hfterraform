@@ -11,8 +11,7 @@ source /home/ec2-user/.bashrc
 wget https://archive.apache.org/dist/kafka/2.6.2/kafka_2.12-2.6.2.tgz -P /home/ec2-user
 tar -xzf kafka_2.12-2.6.2.tgz
 
-
-#docker as non root user
+#COMMANDS TO ENTER MANUALLY IF YOU WANT TO USE DOCKER AS NON ROOT USER
 #sudo groupadd docker
 #sudo usermod -aG docker $USER
 #newgrp docker

@@ -1,6 +1,6 @@
 resource "aws_instance" "bastion" {
   ami               = "ami-0ed961fa828560210"
-  instance_type     = "t2.micro"
+  instance_type     = "t2.small"
   availability_zone = "eu-west-1c"
   key_name          = "hfec2key"
   network_interface {

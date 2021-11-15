@@ -43,20 +43,20 @@ resource "aws_security_group" "sg_msk" {
     to_port         = 0
     security_groups = [aws_security_group.sg_ec2.id]
   }
-    ingress {
-      description = "kafka brokers"
-      from_port   = 9092
-      to_port     = 9098
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-    ingress {
-      description = "zookeeper"
-      from_port   = 2181
-      to_port     = 2182
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
+  ingress {
+    description = "kafka brokers"
+    from_port   = 9092
+    to_port     = 9098
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "zookeeper"
+    from_port   = 2181
+    to_port     = 2182
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   egress {
     from_port   = 0
