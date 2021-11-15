@@ -78,3 +78,4 @@ value.converter.schemaName=awsuseravro1
 key.converter.registry.name=msk-registry
 value.converter.registry.name=msk-registry
 ```
+Choose s3kafkaconnectrole1 for the role of the connector.
