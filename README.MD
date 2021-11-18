@@ -1,5 +1,5 @@
 IMPORTANT: <br/>
-1. You need to change s3 bucket name in terraform.tfvars <br/> <br/>
+1. You need to choose a unique s3 bucket name (variable 's3name' in terraform.tfvars) <br/> <br/>
 2. Create and download an ssh key pair via aws console and name it 'hfec2key'
 
 After that run ```terraform apply``` and it should setup the whole infrastructure. 
