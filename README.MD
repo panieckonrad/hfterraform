@@ -51,7 +51,7 @@ Upload the connector plugin to your s3.
 https://docs.aws.amazon.com/msk/latest/developerguide/msk-connect-plugins.html
 #Create AWS MSK connector
 Create connector following this guide: https://docs.aws.amazon.com/msk/latest/developerguide/msk-connect-connectors.html
-Don't forget to create a cloudwatch group and send the logs to it.
+The cloud watch group is already created and is called 'kafka-connect', make sure to use it.
 Use following configs for connector: <br/>
 ```connector.class=io.confluent.connect.s3.S3SinkConnector
 s3.region=eu-west-1
