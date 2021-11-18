@@ -2,10 +2,6 @@ IMPORTANT: You need to change s3 bucket name in terraform.tfvars <br/> <br/>
 after that run ```terraform apply``` and it should setup the whole infrastructure. 
 run ```terraform output``` to see ec2 ip and broker connection strings
 
-OPTIONAL: To automatically upload custom connector plugin to s3 download
-https://www.confluent.io/hub/confluentinc/kafka-connect-s3 and put it in
-~/Downloads. If you don't do this, you can upload them manually later<br/>
-
 ##In order to produce messages to msk from your local machine you need to create an ssh tunnel to forward your requests to
 msk:
 

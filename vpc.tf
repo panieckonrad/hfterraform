@@ -10,18 +10,11 @@ resource "aws_security_group" "sg_ec2" {
   vpc_id      = aws_vpc.hf-msk-vpc.id
   description = "Allow ssh"
   ingress {
-    description = "ssh"
+    description = "ssh- individual ips, belfast office, belfast vpn"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "schema registry"
-    from_port   = 8081
-    to_port     = 8081
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["165.225.207.74/32,62.254.63.50/32,62.254.63.52/32"]
   }
   egress {
     from_port   = 0
@@ -57,7 +50,6 @@ resource "aws_security_group" "sg_msk" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -65,7 +57,7 @@ resource "aws_security_group" "sg_msk" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "Allow kafka inbound"
+    Name = "Allow kafka ports and all traffic from ec2 hfbastion"
   }
 }
 
