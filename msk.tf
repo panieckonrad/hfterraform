@@ -14,7 +14,7 @@ resource "aws_msk_cluster" "hf-msk" {
   }
   encryption_info {
     encryption_in_transit {
-      client_broker = "TLS_PLAINTEXT"
+      client_broker = "PLAINTEXT"
     }
   }
   tags = {
@@ -29,11 +29,6 @@ resource "aws_glue_registry" "msk-registry" {
 
 output "zookeeper_connect_string" {
   value = aws_msk_cluster.hf-msk.zookeeper_connect_string
-}
-
-output "bootstrap_brokers_tls" {
-  description = "TLS connection host:port pairs"
-  value       = aws_msk_cluster.hf-msk.bootstrap_brokers_tls
 }
 
 output "bootstrap_brokers" {

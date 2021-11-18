@@ -29,13 +29,7 @@ resource "aws_security_group" "sg_ec2" {
 
 resource "aws_security_group" "sg_msk" {
   vpc_id      = aws_vpc.hf-msk-vpc.id
-  description = "Allow ec2 access"
-  ingress {
-    from_port       = 0
-    protocol        = "-1"
-    to_port         = 0
-    security_groups = [aws_security_group.sg_ec2.id]
-  }
+  description = "Allow kafka ports"
   ingress {
     description = "kafka brokers"
     from_port   = 9092
@@ -57,7 +51,7 @@ resource "aws_security_group" "sg_msk" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags        = {
-    Name = "Allow kafka ports and all traffic from ec2 hfbastion"
+    Name = "Allow kafka ports"
   }
 }
 
