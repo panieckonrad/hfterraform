@@ -1,5 +1,8 @@
-IMPORTANT: You need to change s3 bucket name in terraform.tfvars <br/> <br/>
-after that run ```terraform apply``` and it should setup the whole infrastructure. 
+IMPORTANT: <br/>
+1. You need to change s3 bucket name in terraform.tfvars <br/> <br/>
+2. Create and download an ssh key pair via aws console and name it 'hfec2key'
+
+After that run ```terraform apply``` and it should setup the whole infrastructure. 
 run ```terraform output``` to see ec2 ip and broker connection strings
 
 ##In order to produce messages to msk from your local machine you need to create an ssh tunnel to forward your requests to
