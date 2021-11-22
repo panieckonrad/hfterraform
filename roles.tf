@@ -83,6 +83,13 @@ resource "aws_iam_role" "s3-kafka-connect-role1" {
           "Service" : "kafkaconnect.amazonaws.com"
         },
         "Action" : "sts:AssumeRole"
+      },
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "ec2.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"
       }
     ]
   })
@@ -97,6 +104,13 @@ resource "aws_iam_role" "s3-kafka-connect-role2" {
         "Effect" : "Allow",
         "Principal" : {
           "Service" : "kafkaconnect.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"
+      },
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "ec2.amazonaws.com"
         },
         "Action" : "sts:AssumeRole"
       }
@@ -126,6 +140,16 @@ resource "aws_iam_role_policy_attachment" "policy_to_role_attachment2" {
 resource "aws_iam_role_policy_attachment" "policy_to_role_attachment2-2" {
   role       = aws_iam_role.s3-kafka-connect-role2.name
   policy_arn = data.aws_iam_policy.GlueRegistryFullAccess.arn
+}
+
+resource "aws_iam_instance_profile" "s3-kafka-connect-role1-instance" {
+  name = "s3-kafka-connect-role1"
+  role = aws_iam_role.s3-kafka-connect-role1.name
+}
+
+resource "aws_iam_instance_profile" "s3-kafka-connect-role2-instance" {
+  name = "s3-kafka-connect-role2"
+  role = aws_iam_role.s3-kafka-connect-role2.name
 }
 
 

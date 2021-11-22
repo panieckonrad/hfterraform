@@ -7,6 +7,7 @@ resource "aws_instance" "bastion" {
     device_index         = 0
     network_interface_id = aws_network_interface.ni.id
   }
+  iam_instance_profile = aws_iam_instance_profile.s3-kafka-connect-role1-instance.name
   user_data         = file("ec2setup.sh")
   tags              = {
     Name    = "hf-bastion"
