@@ -14,7 +14,7 @@ resource "aws_security_group" "sg_ec2" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["165.225.207.74/32", "62.254.63.50/32", "62.254.63.52/32"]
+    cidr_blocks = ["165.225.207.74/32", "188.147.33.11/32", "62.254.63.50/32", "62.254.63.52/32"]
   }
   egress {
     from_port   = 0
